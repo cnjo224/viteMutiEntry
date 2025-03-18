@@ -11,11 +11,18 @@ export default defineConfig({
   root: path.join(__dirname, 'src'),
   plugins: [react()],
   build: {
-    outDir: path.join(__dirname, 'dist'),
+    outDir: '../dist',
+    emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'src', 'index.html'),
-        //nested: resolve(__dirname, 'nested/index.html'),
+        mainEntry: resolve(__dirname, 'mainEntry', 'index.html'),
+        testEntry: resolve(__dirname, 'testEntry', 'index.html'),
+      },
+      output: {
+        dir: 'dist', // Default output directory
+        entryFileNames: '[name]/build.js', // Create separate build files for each app
+        chunkFileNames: '[name].js', // Create separate chunk files for each app
+        assetFileNames: '[name]/assets/[name].[ext]', // Create separate assets directory for each app
       },
     },
   },
